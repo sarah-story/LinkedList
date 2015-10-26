@@ -78,7 +78,7 @@ namespace UnitTestSinglyLinkedLists
             list.ElementAt(5);
         }
 
-        // CHALLENGE: Implementing negative indices, such that -1 would return "bar" and -2 would return "bar". Write tests first!
+        // CHALLENGE: Implementing negative indices, such that -1 would return "grille" and -2 would return "bar". Write tests first!
         [TestMethod]
         public void ElementAtNegativeIndex()
         {
@@ -166,7 +166,9 @@ namespace UnitTestSinglyLinkedLists
             string[] expected = new string[] { "foo", "bar", "grille" };
             CollectionAssert.AreEqual(expected, list.ToArray());
         }
-
+        /// <summary>
+        /// End of beginner
+        /// </summary>
         [TestMethod]
         public void AddFirstOnEmptyList()
         {

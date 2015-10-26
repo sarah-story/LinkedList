@@ -65,7 +65,34 @@ namespace SinglyLinkedLists
 
         public string ElementAt(int index)
         {
-            throw new NotImplementedException();
+            if (index == 0)
+            {
+                if (first.Value == null)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                else
+                {
+                    return first.Value;
+                }
+            }
+            SinglyLinkedListNode element = first;
+            for (int i = 0; i < index; i++)
+            {
+                if (element.Next == null)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                element = element.Next;
+            }
+            if (element.Value == null)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else
+            {
+                return element.Value;
+            }
         }
 
         public string First()
@@ -88,7 +115,7 @@ namespace SinglyLinkedLists
         // HINT 3: If you highlight code and right click, you can use the refactor menu to extract a method for you...
         public string Last()
         {
-            throw new NotImplementedException();
+            return last.Value;
         }
 
         public void Remove(string value)
@@ -103,7 +130,22 @@ namespace SinglyLinkedLists
 
         public string[] ToArray()
         {
-            throw new NotImplementedException();
+            List<string> array = new List<string>();
+            SinglyLinkedListNode element = first;
+            while (element != null && element.Value != null)
+            {
+                array.Add(element.Value);
+                element = element.Next;
+            }
+            return array.ToArray();
+        }
+
+        public override string ToString()
+        {
+            if (first.Value == null) { return "{ }"; }
+            string arrayString = String.Join("\", \"", this.ToArray());
+            string output = String.Format("{{ \"{0}\" }}", arrayString);
+            return output;
         }
     }
 }
