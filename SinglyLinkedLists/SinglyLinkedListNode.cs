@@ -47,9 +47,9 @@ namespace SinglyLinkedLists
             return node1.CompareTo(node2) > 0;
         }
 
-        public SinglyLinkedListNode(string v)
+        public SinglyLinkedListNode(string val)
         {
-            value = v;
+            value = val;
             next = null;
 
             // Used by the visualizer:
@@ -64,12 +64,27 @@ namespace SinglyLinkedLists
 
         public bool IsLast()
         {
-            throw new NotImplementedException();
+            if (this.Next == null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public override string ToString()
         {
             return this.Value;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is SinglyLinkedListNode)
+            {
+                SinglyLinkedListNode other = (SinglyLinkedListNode)obj;
+                return Equals(other.Value, this.Value);
+            }
+            return false;
         }
     }
 }

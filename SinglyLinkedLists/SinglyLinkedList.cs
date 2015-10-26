@@ -7,15 +7,22 @@ namespace SinglyLinkedLists
 {
     public class SinglyLinkedList
     {
-        public SinglyLinkedList()
-        {
-            // NOTE: This constructor isn't necessary, once you've implemented the constructor below.
-        }
+        private SinglyLinkedListNode first;
+        private SinglyLinkedListNode last;
 
         // READ: http://msdn.microsoft.com/en-us/library/aa691335(v=vs.71).aspx
         public SinglyLinkedList(params object[] values)
         {
-            throw new NotImplementedException();
+            if (values.Length == 0)
+            {
+                first = new SinglyLinkedListNode(null);
+                last = new SinglyLinkedListNode(null);
+            }
+            else
+            {
+                first = new SinglyLinkedListNode((string)values[0]);
+                last = new SinglyLinkedListNode((string)values[values.Length - 1]);
+            }
         }
 
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
@@ -37,7 +44,17 @@ namespace SinglyLinkedLists
 
         public void AddLast(string value)
         {
-            throw new NotImplementedException();
+            if (last.Value != null)
+            {
+                SinglyLinkedListNode placeholder = last;
+                last = new SinglyLinkedListNode(value);
+                placeholder.Next = last;
+            }
+            else
+            {
+                last = new SinglyLinkedListNode(value);
+                first = last;
+            }
         }
 
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
@@ -53,7 +70,7 @@ namespace SinglyLinkedLists
 
         public string First()
         {
-            throw new NotImplementedException();
+            return first.Value;
         }
 
         public int IndexOf(string value)
