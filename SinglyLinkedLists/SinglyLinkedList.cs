@@ -37,8 +37,17 @@ namespace SinglyLinkedLists
         // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
         public string this[int i]
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get { return ElementAt(i); }
+            set
+            {
+                if (i >= count || i < 0) { throw new IndexOutOfRangeException(); }
+                SinglyLinkedListNode element = first;
+                for (int j = 0; j < i; j++)
+                {
+                    element = element.Next;
+                }
+                element.Value = value;
+            }
         }
 
         public void AddAfter(string existingValue, string value)
@@ -153,7 +162,20 @@ namespace SinglyLinkedLists
 
         public bool IsSorted()
         {
-            throw new NotImplementedException();
+            if (this.Count() == 0)
+            {
+                return true;
+            }
+            SinglyLinkedListNode element = first;
+            for (int i = 0; i < count - 1; i++)
+            {
+                if (element.Next < element)
+                {
+                    return false;
+                }
+                element = element.Next;
+            }
+            return true;
         }
 
         // HINT 1: You can extract this functionality (finding the last item in the list) from a method you've already written!
@@ -169,6 +191,7 @@ namespace SinglyLinkedLists
             if (first.Value == value)
             {
                 first = first.Next;
+                count--;
                 return;
             }
             SinglyLinkedListNode element = first;
@@ -197,7 +220,57 @@ namespace SinglyLinkedLists
 
         public void Sort()
         {
-            throw new NotImplementedException();
+            first = MergeSort(first);
+            SinglyLinkedListNode element = first;
+            for(int i = 0; i< count; i++)
+            {
+                if (element.IsLast())
+                {
+                    last = element;
+                    return;
+                }
+                element = element.Next;
+            }   
+        }
+
+        private SinglyLinkedListNode MergeSort(SinglyLinkedListNode head)
+        {
+            SinglyLinkedListNode secondNode;
+            if (head == null || head.Next == null) { return head; }
+            else
+            {
+                secondNode = Split(head);
+                return Merge(MergeSort(head), MergeSort(secondNode));
+            }
+        }
+
+        private SinglyLinkedListNode Merge(SinglyLinkedListNode a, SinglyLinkedListNode b)
+        {
+           if (a == null) { return b; }
+           else if (b == null) { return a; }
+           else if (a.Value.CompareTo(b.Value) <= 0)
+            {
+                a.Next = Merge(a.Next, b);
+                return a;
+            }
+           else
+            {
+                b.Next = Merge(b.Next, a);
+                return b;
+            }
+        } 
+
+        private SinglyLinkedListNode Split(SinglyLinkedListNode head)
+        {
+            SinglyLinkedListNode placeholder;
+            if (head == null || head.Next == null) { return null; }
+            else
+            {
+                placeholder = head.Next;
+                head.Next = placeholder.Next;
+                placeholder.Next = Split(placeholder.Next);
+                return placeholder;
+            }
         }
 
         public string[] ToArray()
