@@ -166,9 +166,7 @@ namespace UnitTestSinglyLinkedLists
             string[] expected = new string[] { "foo", "bar", "grille" };
             CollectionAssert.AreEqual(expected, list.ToArray());
         }
-        /// <summary>
-        /// End of beginner
-        /// </summary>
+        
         [TestMethod]
         public void AddFirstOnEmptyList()
         {

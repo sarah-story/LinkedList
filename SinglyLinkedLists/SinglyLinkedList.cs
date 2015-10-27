@@ -9,6 +9,7 @@ namespace SinglyLinkedLists
     {
         private SinglyLinkedListNode first;
         private SinglyLinkedListNode last;
+        private int count;
 
         // READ: http://msdn.microsoft.com/en-us/library/aa691335(v=vs.71).aspx
         public SinglyLinkedList(params object[] values)
@@ -17,11 +18,19 @@ namespace SinglyLinkedLists
             {
                 first = new SinglyLinkedListNode(null);
                 last = new SinglyLinkedListNode(null);
+                count = 0;
             }
             else
             {
-                first = new SinglyLinkedListNode((string)values[0]);
-                last = new SinglyLinkedListNode((string)values[values.Length - 1]);
+                SinglyLinkedListNode node = new SinglyLinkedListNode((string)values[0]);
+                first = node;
+                for (int i = 1; i < values.Length; i++)
+                {
+                    node.Next = new SinglyLinkedListNode((string)values[i]);
+                    node = node.Next;   
+                }
+                last = node;
+                count = values.Length;
             }
         }
 
@@ -34,12 +43,36 @@ namespace SinglyLinkedLists
 
         public void AddAfter(string existingValue, string value)
         {
-            throw new NotImplementedException();
+            SinglyLinkedListNode element = first;
+            while (element != null)
+            {
+                if (element.Value == existingValue)
+                {
+                    SinglyLinkedListNode newNode = new SinglyLinkedListNode(value);
+                    newNode.Next = element.Next;
+                    element.Next = newNode;
+                    count++;
+                    break;
+                }
+                else if (element.Next == null) { throw new ArgumentException(); }
+                else { element = element.Next; }
+            }
         }
 
         public void AddFirst(string value)
         {
-            throw new NotImplementedException();
+            if (first.Value != null)
+            {
+                SinglyLinkedListNode placeholder = first;
+                first = new SinglyLinkedListNode(value);
+                first.Next = placeholder;
+            }
+            else
+            {
+                first = new SinglyLinkedListNode(value);
+                last = first;
+            }
+            count++;
         }
 
         public void AddLast(string value)
@@ -55,12 +88,13 @@ namespace SinglyLinkedLists
                 last = new SinglyLinkedListNode(value);
                 first = last;
             }
+            count++;
         }
 
         // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
         public int Count()
         {
-            throw new NotImplementedException();
+            return count;
         }
 
         public string ElementAt(int index)
@@ -102,7 +136,19 @@ namespace SinglyLinkedLists
 
         public int IndexOf(string value)
         {
-            throw new NotImplementedException();
+            SinglyLinkedListNode element = first;
+            for (int i = 0; i < count; i++)
+            {
+                if (element.Value == value)
+                {
+                    return i;
+                }
+                else
+                {
+                    element = element.Next;
+                }
+            }
+            return -1;  
         }
 
         public bool IsSorted()
@@ -120,7 +166,33 @@ namespace SinglyLinkedLists
 
         public void Remove(string value)
         {
-            throw new NotImplementedException();
+            if (first.Value == value)
+            {
+                first = first.Next;
+                return;
+            }
+            SinglyLinkedListNode element = first;
+            while (element.Next != null)
+            {
+                if (element.Next.Value == value)
+                {
+                    if (element.Next == last)
+                    {
+                        element.Next = null;
+                        last = element;
+                    }
+                    else
+                    {
+                        element.Next = element.Next.Next;
+                    }
+                    count--;
+                    return;
+                }
+                else
+                {
+                    element = element.Next;
+                }
+            }
         }
 
         public void Sort()
