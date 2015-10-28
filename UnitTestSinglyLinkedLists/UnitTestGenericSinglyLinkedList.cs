@@ -5,7 +5,7 @@ using SinglyLinkedLists;
 namespace UnitTestSinglyLinkedLists
 {
     [TestClass]
-    public class GenericSinglyLinkedList
+    public class UnitTestGenericSinglyLinkedList
     {
         [TestMethod]
         public void InitializingWithInt()
