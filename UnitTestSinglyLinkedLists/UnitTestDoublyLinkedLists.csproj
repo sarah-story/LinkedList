@@ -52,9 +52,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GenericSinglyLinkedList.cs" />
-    <Compile Include="UnitTestSinglyLinkedListNode.cs" />
-    <Compile Include="UnitTestSinglyLinkedList.cs" />
+    <Compile Include="UnitTestGenericDoublyLinkedList.cs" />
+    <Compile Include="UnitTestDoublyLinkedListNode.cs" />
+    <Compile Include="UnitTestDoublyLinkedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,9 +66,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SinglyLinkedLists\SinglyLinkedLists.csproj">
+    <ProjectReference Include="..\SinglyLinkedLists\DoublyLinkedLists.csproj">
       <Project>{72A0D6BE-FF5F-4F4A-A1D5-2C405C9B9D05}</Project>
-      <Name>SinglyLinkedLists</Name>
+      <Name>DoublyLinkedLists</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

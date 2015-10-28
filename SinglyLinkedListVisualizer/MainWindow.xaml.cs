@@ -13,10 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QuickGraph;
-using SinglyLinkedLists;
+using DoublyLinkedLists;
 using System.Reflection;
 
-namespace SinglyLinkedListVisualizer
+namespace DoublyLinkedListVisualizer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -24,7 +24,7 @@ namespace SinglyLinkedListVisualizer
     public partial class MainWindow : Window
     {
         private BidirectionalGraph<object, IEdge<object>> _graphToVisualize;
-        private SinglyLinkedList<string> linkedList;
+        private DoublyLinkedList<string> linkedList;
 
         public BidirectionalGraph<object, IEdge<object>> GraphToVisualize
         {
@@ -42,7 +42,7 @@ namespace SinglyLinkedListVisualizer
 
         private void InitializeLinkedList()
         {
-            linkedList = new SinglyLinkedList<string>();
+            linkedList = new DoublyLinkedList<string>();
         }
 
         private void Sort_Click(object sender, RoutedEventArgs e)
@@ -79,7 +79,7 @@ namespace SinglyLinkedListVisualizer
         private void PopulateMethodList()
         {
             var methodList = new List<string>();
-            foreach (MethodInfo methodInfo in typeof(SinglyLinkedList<string>).GetMethods())
+            foreach (MethodInfo methodInfo in typeof(DoublyLinkedList<string>).GetMethods())
             {
                 if (!methodInfo.IsStatic  && methodInfo.IsPublic)
                 {
@@ -102,13 +102,13 @@ namespace SinglyLinkedListVisualizer
                 _graphToVisualize.RemoveEdge(_graphToVisualize.Edges.First());
             }
 
-            _graphToVisualize.AddVertex("SinglyLinkedList");
+            _graphToVisualize.AddVertex("DoublyLinkedList");
             _graphToVisualize.AddVertex("null");
-            foreach(SinglyLinkedListNode<string> node in SinglyLinkedListNode<string>.allNodes){
+            foreach(DoublyLinkedListNode<string> node in DoublyLinkedListNode<string>.allNodes){
                 _graphToVisualize.AddVertex(node.ToString());
             }
 
-            foreach (SinglyLinkedListNode<string> node in SinglyLinkedListNode<string>.allNodes)
+            foreach (DoublyLinkedListNode<string> node in DoublyLinkedListNode<string>.allNodes)
             {
                 if (node.Next == null)
                 {
@@ -121,11 +121,11 @@ namespace SinglyLinkedListVisualizer
             }
             try
             {
-                _graphToVisualize.AddEdge(new Edge<object>("SinglyLinkedList", linkedList.First() ?? "null"));
+                _graphToVisualize.AddEdge(new Edge<object>("DoublyLinkedList", linkedList.First() ?? "null"));
             }
             catch (NotImplementedException)
             {
-                _graphToVisualize.AddEdge(new Edge<object>("SinglyLinkedList", "null"));
+                _graphToVisualize.AddEdge(new Edge<object>("DoublyLinkedList", "null"));
             }
         }
     }

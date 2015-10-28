@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SinglyLinkedListVisualizer.Properties
+namespace DoublyLinkedListVisualizer.Properties
 {
 
 

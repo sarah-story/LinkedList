@@ -120,9 +120,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SinglyLinkedLists\SinglyLinkedLists.csproj">
+    <ProjectReference Include="..\SinglyLinkedLists\DoublyLinkedLists.csproj">
       <Project>{72a0d6be-ff5f-4f4a-a1d5-2c405c9b9d05}</Project>
-      <Name>SinglyLinkedLists</Name>
+      <Name>DoublyLinkedLists</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

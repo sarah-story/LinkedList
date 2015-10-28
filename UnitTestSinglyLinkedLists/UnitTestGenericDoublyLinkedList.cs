@@ -1,23 +1,23 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SinglyLinkedLists;
+using DoublyLinkedLists;
 
-namespace UnitTestSinglyLinkedLists
+namespace UnitTestDoublyLinkedLists
 {
     [TestClass]
-    public class UnitTestGenericSinglyLinkedList
+    public class UnitTestGenericDoublyLinkedList
     {
         [TestMethod]
         public void InitializingWithInt()
         {
-            SinglyLinkedList<int> list = new SinglyLinkedList<int>(new int[] { 1, 2, 3, 4 });
+            DoublyLinkedList<int> list = new DoublyLinkedList<int>(new int[] { 1, 2, 3, 4 });
             Assert.IsNotNull(list);
         }
 
         [TestMethod]
         public void SortingWithInt()
         {
-            SinglyLinkedList<int> list = new SinglyLinkedList<int>(new int[] { 4, 1, 3, 2 });
+            DoublyLinkedList<int> list = new DoublyLinkedList<int>(new int[] { 4, 1, 3, 2 });
             list.Sort();
             int[] expected = { 1, 2, 3, 4 };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -26,7 +26,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ToStringWithInt()
         {
-            SinglyLinkedList<int> list = new SinglyLinkedList<int>(new int[] { 1, 2, 3, 4 });
+            DoublyLinkedList<int> list = new DoublyLinkedList<int>(new int[] { 1, 2, 3, 4 });
             string expected = "{ \"1\", \"2\", \"3\", \"4\" }";
             Assert.AreEqual(expected, list.ToString());
         }
@@ -34,16 +34,16 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void NodeEqualityWithInt()
         {
-            SinglyLinkedListNode<int> node1 = new SinglyLinkedListNode<int>(1);
-            SinglyLinkedListNode<int> node2 = new SinglyLinkedListNode<int>(1);
+            DoublyLinkedListNode<int> node1 = new DoublyLinkedListNode<int>(1);
+            DoublyLinkedListNode<int> node2 = new DoublyLinkedListNode<int>(1);
             Assert.AreEqual(node1, node2);
         }
 
         [TestMethod]
         public void NodeInequalityWithInt()
         {
-            SinglyLinkedListNode<int> node1 = new SinglyLinkedListNode<int>(1);
-            SinglyLinkedListNode<int> node2 = new SinglyLinkedListNode<int>(2);
+            DoublyLinkedListNode<int> node1 = new DoublyLinkedListNode<int>(1);
+            DoublyLinkedListNode<int> node2 = new DoublyLinkedListNode<int>(2);
             Assert.AreNotEqual(node1, node2);
         }
     }

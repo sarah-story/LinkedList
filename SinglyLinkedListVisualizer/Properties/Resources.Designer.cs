@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SinglyLinkedListVisualizer.Properties
+namespace DoublyLinkedListVisualizer.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace SinglyLinkedListVisualizer.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SinglyLinkedListVisualizer.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DoublyLinkedListVisualizer.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

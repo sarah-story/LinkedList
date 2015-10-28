@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SinglyLinkedLists
+namespace DoublyLinkedLists
 {
-    public class SinglyLinkedList<T> where T : IComparable
+    public class DoublyLinkedList<T> where T : IComparable
     {
-        private SinglyLinkedListNode<T> first;
-        private SinglyLinkedListNode<T> last;
+        private DoublyLinkedListNode<T> first;
+        private DoublyLinkedListNode<T> last;
         private int count;
 
-        public SinglyLinkedList(params T[] values)
+        public DoublyLinkedList(params T[] values)
         {
             if (values.Length == 0)
             {
@@ -21,11 +21,12 @@ namespace SinglyLinkedLists
             }
             else
             {
-                SinglyLinkedListNode<T> node = new SinglyLinkedListNode<T>(values[0]);
+                DoublyLinkedListNode<T> node = new DoublyLinkedListNode<T>(values[0]);
                 first = node;
                 for (int i = 1; i < values.Length; i++)
                 {
-                    node.Next = new SinglyLinkedListNode<T>(values[i]);
+                    node.Next = new DoublyLinkedListNode<T>(values[i]);
+                    node.Next.Previous = node;
                     node = node.Next;   
                 }
                 last = node;
@@ -39,7 +40,7 @@ namespace SinglyLinkedLists
             set
             {
                 if (i >= count || i < 0) { throw new IndexOutOfRangeException(); }
-                SinglyLinkedListNode<T> element = first;
+                DoublyLinkedListNode<T> element = first;
                 for (int j = 0; j < i; j++)
                 {
                     element = element.Next;
@@ -50,14 +51,16 @@ namespace SinglyLinkedLists
 
         public void AddAfter(T existingValue, T value)
         {
-            SinglyLinkedListNode<T> element = first;
+            DoublyLinkedListNode<T> element = first;
             while (element != null)
             {
                 if (existingValue.Equals(element.Value))
                 {
-                    SinglyLinkedListNode<T> newNode = new SinglyLinkedListNode<T>(value);
+                    DoublyLinkedListNode<T> newNode = new DoublyLinkedListNode<T>(value);
                     newNode.Next = element.Next;
+                    newNode.Previous = element;
                     element.Next = newNode;
+                    if (newNode.Next != null) { newNode.Next.Previous = newNode; }
                     count++;
                     break;
                 }
@@ -70,13 +73,14 @@ namespace SinglyLinkedLists
         {
             if (first != null)
             {
-                SinglyLinkedListNode<T> placeholder = first;
-                first = new SinglyLinkedListNode<T>(value);
-                first.Next = placeholder;
+                DoublyLinkedListNode<T> oldFirst = first;
+                first = new DoublyLinkedListNode<T>(value);
+                first.Next = oldFirst;
+                oldFirst.Previous = first;
             }
             else
             {
-                first = new SinglyLinkedListNode<T>(value);
+                first = new DoublyLinkedListNode<T>(value);
                 last = first;
             }
             count++;
@@ -86,13 +90,14 @@ namespace SinglyLinkedLists
         {
             if (last != null)
             {
-                SinglyLinkedListNode<T> placeholder = last;
-                last = new SinglyLinkedListNode<T>(value);
-                placeholder.Next = last;
+                DoublyLinkedListNode<T> oldLast = last;
+                last = new DoublyLinkedListNode<T>(value);
+                oldLast.Next = last;
+                last.Previous = oldLast;
             }
             else
             {
-                last = new SinglyLinkedListNode<T>(value);
+                last = new DoublyLinkedListNode<T>(value);
                 first = last;
             }
             count++;
@@ -105,7 +110,7 @@ namespace SinglyLinkedLists
 
         public T ElementAt(int index)
         {
-            SinglyLinkedListNode<T> element = first;
+            DoublyLinkedListNode<T> element = first;
             if (index == 0)
             {
                 if (first == null)
@@ -122,9 +127,10 @@ namespace SinglyLinkedLists
                 if (count + index < 0) { throw new ArgumentOutOfRangeException(); }
                 else
                 {
-                    for (int i = 0; i < count + index; i++)
+                    DoublyLinkedListNode<T> end = last;
+                    for (int i = 0; i > index; i--)
                     {
-                        element = element.Next;
+                        end = end.Previous;
                     }
                     if (element == null) { throw new ArgumentOutOfRangeException(); }
                     return element.Value;
@@ -159,7 +165,7 @@ namespace SinglyLinkedLists
 
         public int IndexOf(T value)
         {
-            SinglyLinkedListNode<T> element = first;
+            DoublyLinkedListNode<T> element = first;
             for (int i = 0; i < count; i++)
             {
                 if (EqualityComparer<T>.Default.Equals(value, element.Value))
@@ -177,7 +183,7 @@ namespace SinglyLinkedLists
         public bool IsSorted()
         {
             if (Count() == 0 || Count() == 1) { return true; }
-            SinglyLinkedListNode<T> element = first;
+            DoublyLinkedListNode<T> element = first;
             for (int i = 0; i < count - 1; i++)
             {
                 if (element.Next < element) { return false; }
@@ -194,13 +200,14 @@ namespace SinglyLinkedLists
 
         public void Remove(T value)
         {
-            if (EqualityComparer<T>.Default.Equals(first.Value, value))
+            if (first.Value.Equals(value))
             {
                 first = first.Next;
+                if (first != null) { first.Previous = null; }
                 count--;
                 return;
             }
-            SinglyLinkedListNode<T> element = first;
+            DoublyLinkedListNode<T> element = first;
             while (element.Next != null)
             {
                 if (EqualityComparer<T>.Default.Equals(element.Next.Value,value))
@@ -213,6 +220,7 @@ namespace SinglyLinkedLists
                     else
                     {
                         element.Next = element.Next.Next;
+                        element.Next.Previous = element;
                     }
                     count--;
                     break;
@@ -229,9 +237,9 @@ namespace SinglyLinkedLists
             first = MergeSort(first);  
         }
 
-        private SinglyLinkedListNode<T> MergeSort(SinglyLinkedListNode<T> head)
+        private DoublyLinkedListNode<T> MergeSort(DoublyLinkedListNode<T> head)
         {
-            SinglyLinkedListNode<T> secondHalf;
+            DoublyLinkedListNode<T> secondHalf;
             if (head == null || head.Next == null) { return head; }
             else
             {
@@ -240,7 +248,7 @@ namespace SinglyLinkedLists
             }
         }
 
-        private SinglyLinkedListNode<T> Merge(SinglyLinkedListNode<T> a, SinglyLinkedListNode<T> b)
+        private DoublyLinkedListNode<T> Merge(DoublyLinkedListNode<T> a, DoublyLinkedListNode<T> b)
         {
            if (a == null) { last = b; return b; }
            else if (b == null) { last = a; return a; }
@@ -256,9 +264,9 @@ namespace SinglyLinkedLists
             }
         } 
 
-        private SinglyLinkedListNode<T> Split(SinglyLinkedListNode<T> head)
+        private DoublyLinkedListNode<T> Split(DoublyLinkedListNode<T> head)
         {
-            SinglyLinkedListNode<T> secondHalf;
+            DoublyLinkedListNode<T> secondHalf;
             if (head == null || head.Next == null) { return null; }
             else
             {
@@ -272,7 +280,7 @@ namespace SinglyLinkedLists
         public T[] ToArray()
         {
             List<T> array = new List<T>();
-            SinglyLinkedListNode<T> element = first;
+            DoublyLinkedListNode<T> element = first;
             while (element != null && element.Value != null)
             {
                 array.Add(element.Value);

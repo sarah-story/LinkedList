@@ -1,23 +1,23 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SinglyLinkedLists;
+using DoublyLinkedLists;
 
-namespace UnitTestSinglyLinkedLists
+namespace UnitTestDoublyLinkedLists
 {
     [TestClass]
-    public class UnitTestSinglyLinkedList
+    public class UnitTestDoublyLinkedList
     {
         [TestMethod]
         public void FirstOnEmptyList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             Assert.AreEqual(null, list.First());
         }
 
         [TestMethod]
         public void FirstOnShortList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             Assert.AreEqual("foo", list.First());
         }
@@ -25,7 +25,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void FirstOnLongerList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             Assert.AreEqual("foo", list.First());
@@ -35,14 +35,14 @@ namespace UnitTestSinglyLinkedLists
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ElementAt0OnEmptyList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.ElementAt(0);
         }
 
         [TestMethod]
         public void ElementAt0()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             Assert.AreEqual("foo", list.ElementAt(0));
@@ -51,7 +51,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ElementAt1()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             list.AddLast("grille");
@@ -61,7 +61,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ElementAtEndOfList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             list.AddLast("grille");
@@ -72,7 +72,7 @@ namespace UnitTestSinglyLinkedLists
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ElementAtN()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("bar");
             list.AddLast("grille");
             list.ElementAt(5);
@@ -82,7 +82,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ElementAtNegativeIndex()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             list.AddLast("grille");
@@ -92,14 +92,14 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void LastOnEmptyList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             Assert.AreEqual(null, list.Last());
         }
 
         [TestMethod]
         public void LastOnShortList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             Assert.AreEqual("foo", list.Last());
         }
@@ -107,7 +107,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void LastOnLongerList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             list.AddLast("grille");
@@ -117,14 +117,14 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ToStringOnEmptyList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             Assert.AreEqual("{ }", list.ToString());
         }
 
         [TestMethod]
         public void ToStringOnSingleItemList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             Assert.AreEqual("{ \"foo\" }", list.ToString());
         }
@@ -132,7 +132,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ToStringOnMultipleItemList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             list.AddLast("grille");
@@ -142,7 +142,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ToArrayOnEmptyList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             string[] expected = new string[] { };
             CollectionAssert.AreEqual(expected, list.ToArray());
         }
@@ -150,7 +150,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ToArrayOnSingleItemList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             string[] expected = new string[] { "foo" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -159,7 +159,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ToArrayOnMultipleItemList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             list.AddLast("grille");
@@ -170,7 +170,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void AddFirstOnEmptyList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddFirst("foo");
             string[] expected = new string[] { "foo" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -179,7 +179,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void AddFirstOnLongerList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             list.AddFirst("grille");
@@ -191,7 +191,7 @@ namespace UnitTestSinglyLinkedLists
         [ExpectedException(typeof(ArgumentException))]
         public void AddAfterItemThatDoesntExist()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             list.AddAfter("cat", "grille");
@@ -200,7 +200,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void AddAfter()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("grille");
             // NOTE: This assert isn't necessary.  It is merely here to remind you of / verify the state of the list prior to inserting the new node.
@@ -215,7 +215,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void AddAfterLastItem()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             list.AddAfter("bar", "grille");
@@ -226,7 +226,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ConstructorWithOneArgument()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo");
             var expected = new string[] { "foo" };
             CollectionAssert.AreEqual(expected, list.ToArray());
         }
@@ -234,7 +234,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ConstructorWithMultipleArguments()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             var expected = new string[] { "foo", "bar", "grille" };
             CollectionAssert.AreEqual(expected, list.ToArray());
         }
@@ -242,14 +242,14 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ListBracketAccessor()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             Assert.AreEqual("bar", list[1]);
         }
 
         [TestMethod]
         public void ListBracketAssignmentSetsItem()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             list[2] = "cat";
             Assert.AreEqual("cat", list[2]);
         }
@@ -257,7 +257,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ListBracketAssignmentPreservesRestOfList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             list[2] = "cat";
             var expected = new string[] { "foo", "bar", "cat" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -266,7 +266,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ListRemoveFirstNode()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             list.Remove("foo");
             var expected = new string[] { "bar", "grille" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -275,7 +275,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ListRemoveItemFromMiddleOfList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             list.Remove("bar");
             var expected = new string[] { "foo", "grille" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -284,7 +284,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ListRemoveLastItemFromList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             list.Remove("grille");
             var expected = new string[] { "foo", "bar" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -293,7 +293,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ListRemoveNonExistentNode()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             list.Remove("cat");
             var expected = new string[] { "foo", "bar", "grille" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -302,7 +302,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void ListRemoveWithDuplicateNodes()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille", "bar");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille", "bar");
             list.Remove("bar");
             var expected = new string[] { "foo", "grille", "bar" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -311,14 +311,14 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void CountEmptyList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             Assert.AreEqual(0, list.Count());
         }
 
         [TestMethod]
         public void CountOneItemList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             Assert.AreEqual(1, list.Count());
         }
@@ -326,7 +326,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void CountNItemList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.AddLast("foo");
             list.AddLast("bar");
             list.AddLast("grille");
@@ -337,7 +337,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void CountChangesOnRemoval()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             list.Remove("foo");
             Assert.AreEqual(2, list.Count());
             list.Remove("bar");
@@ -349,77 +349,77 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void IndexOfNodeInFirstPosition()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             Assert.AreEqual(0, list.IndexOf("foo"));
         }
         
         [TestMethod]
         public void IndexOfNodeInMiddlePosition()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             Assert.AreEqual(1, list.IndexOf("bar"));
         }
 
         [TestMethod]
         public void IndexOfNodeInLastPosition()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             Assert.AreEqual(2, list.IndexOf("grille"));
         }
 
         [TestMethod]
         public void IndexOfStringThatDoesntExist()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille");
             Assert.AreEqual(-1, list.IndexOf("cat"));
         }
 
         [TestMethod]
         public void IndexOfDuplicateNode()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "bar", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "bar", "grille");
             Assert.AreEqual(1, list.IndexOf("bar"));
         }
 
         [TestMethod]
         public void IndexOfOnEmptyList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             Assert.AreEqual(-1, list.IndexOf("bar"));
         }
 
         [TestMethod]
         public void IsSortedOnEmptyList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             Assert.IsTrue(list.IsSorted());
         }
 
         [TestMethod]
         public void IsSortedOnSingleItemList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo");
             Assert.IsTrue(list.IsSorted());
         }
 
         [TestMethod]
         public void IsSortedOnListOfDuplicates()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "foo");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "foo");
             Assert.IsTrue(list.IsSorted());
         }
 
         [TestMethod]
         public void IsSortedOnUnsortedList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar");
             Assert.IsFalse(list.IsSorted());
         }
 
         [TestMethod]
         public void IsSortedOnSortedList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("bar", "foo");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("bar", "foo");
             Assert.IsTrue(list.IsSorted());
         }
 
@@ -427,7 +427,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void SortEmptyList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>();
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>();
             list.Sort();
             var expected = new string[] { };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -436,7 +436,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void SortSingleItemList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo");
             list.Sort();
             var expected = new string[] { "foo" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -445,7 +445,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void SortUnsortedList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar");
             list.Sort();
             var expected = new string[] { "bar", "foo" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -454,7 +454,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void SortSortedList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("bar", "cat", "foo", "grille");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("bar", "cat", "foo", "grille");
             list.Sort();
             var expected = new string[] { "bar", "cat", "foo", "grille" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -463,7 +463,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void SortLongerList()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille", "zoo", "cat");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille", "zoo", "cat");
             list.Sort();
             var expected = new string[] { "bar", "cat", "foo", "grille", "zoo" };
             CollectionAssert.AreEqual(expected, list.ToArray());
@@ -472,7 +472,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void SortThenGetLast()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille", "zoo", "cat");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille", "zoo", "cat");
             list.Sort();
             Assert.AreEqual("zoo", list.Last());
         }
@@ -480,7 +480,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void SortListWithDuplicates()
         {
-            SinglyLinkedList<string> list = new SinglyLinkedList<string>("foo", "bar", "grille", "bar");
+            DoublyLinkedList<string> list = new DoublyLinkedList<string>("foo", "bar", "grille", "bar");
             list.Sort();
             var expected = new string[] { "bar", "bar", "foo", "grille" };
             CollectionAssert.AreEqual(expected, list.ToArray());

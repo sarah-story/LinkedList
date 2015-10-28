@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 
 // Stretch Goals: Using Generics, which would include implementing GetType() http://msdn.microsoft.com/en-us/library/system.object.gettype(v=vs.110).aspx
-namespace SinglyLinkedLists
+namespace DoublyLinkedLists
 {
-    public class SinglyLinkedListNode<T> : IComparable where T : IComparable
+    public class DoublyLinkedListNode<T> : IComparable where T : IComparable
     {
         // Used by the visualizer.  Do not change.
-        public static List<SinglyLinkedListNode<T>> allNodes = new List<SinglyLinkedListNode<T>>();
+        public static List<DoublyLinkedListNode<T>> allNodes = new List<DoublyLinkedListNode<T>>();
 
-        private SinglyLinkedListNode<T> next;
-        public SinglyLinkedListNode<T> Next
+        private DoublyLinkedListNode<T> next;
+        public DoublyLinkedListNode<T> Next
         {
             get { return next; }
             set
@@ -24,7 +24,19 @@ namespace SinglyLinkedLists
                 next = value;
             }
         }
-        
+        private DoublyLinkedListNode<T> prev;
+        public DoublyLinkedListNode<T> Previous
+        {
+            get { return prev; }
+            set
+            {
+                if (value == this)
+                {
+                    throw new ArgumentException();
+                }
+                prev = value;
+            }
+        }
         private T value;
         public T Value 
         {
@@ -35,22 +47,23 @@ namespace SinglyLinkedLists
             set { this.value = value; }
         }
 
-        public static bool operator <(SinglyLinkedListNode<T> node1, SinglyLinkedListNode<T> node2)
+        public static bool operator <(DoublyLinkedListNode<T> node1, DoublyLinkedListNode<T> node2)
         {
             // This implementation is provided for your convenience.
             return node1.CompareTo(node2) < 0;
         }
 
-        public static bool operator >(SinglyLinkedListNode<T> node1, SinglyLinkedListNode<T> node2)
+        public static bool operator >(DoublyLinkedListNode<T> node1, DoublyLinkedListNode<T> node2)
         {
             // This implementation is provided for your convenience.
             return node1.CompareTo(node2) > 0;
         }
 
-        public SinglyLinkedListNode(T val)
+        public DoublyLinkedListNode(T val)
         {
             value = val;
             next = null;
+            prev = null;
 
             // Used by the visualizer:
             allNodes.Add(this);
@@ -59,7 +72,7 @@ namespace SinglyLinkedLists
         public int CompareTo(object obj)
         {
             if (obj == null) { return 1; }
-            SinglyLinkedListNode<T> otherNode = obj as SinglyLinkedListNode<T>;
+            DoublyLinkedListNode<T> otherNode = obj as DoublyLinkedListNode<T>;
             if (otherNode != null)
                 return Value.CompareTo(otherNode.Value);
             else
@@ -83,9 +96,9 @@ namespace SinglyLinkedLists
 
         public override bool Equals(object obj)
         {
-            if (obj is SinglyLinkedListNode<T>)
+            if (obj is DoublyLinkedListNode<T>)
             {
-                SinglyLinkedListNode<T> other = (SinglyLinkedListNode<T>)obj;
+                DoublyLinkedListNode<T> other = (DoublyLinkedListNode<T>)obj;
                 return Equals(other.Value, this.Value);
             }
             return false;
