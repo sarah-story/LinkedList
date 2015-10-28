@@ -12,22 +12,22 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void NodeConstructorStoresName()
         {
-            SinglyLinkedListNode node = new SinglyLinkedListNode("foo");
+            SinglyLinkedListNode<string> node = new SinglyLinkedListNode<string>("foo");
             Assert.AreEqual("foo", node.Value);
         }
 
         [TestMethod]
         public void NodeDefaultNext()
         {
-            SinglyLinkedListNode node = new SinglyLinkedListNode("foo");
+            SinglyLinkedListNode<string> node = new SinglyLinkedListNode<string>("foo");
             Assert.IsNull(node.Next);
         }
 
         [TestMethod]
         public void NodeSetNext()
         {
-            SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
-            SinglyLinkedListNode node2 = new SinglyLinkedListNode("bar");
+            SinglyLinkedListNode<string> node1 = new SinglyLinkedListNode<string>("foo");
+            SinglyLinkedListNode<string> node2 = new SinglyLinkedListNode<string>("bar");
             node1.Next = node2;
             Assert.AreEqual(node2, node1.Next);
         }
@@ -36,15 +36,15 @@ namespace UnitTestSinglyLinkedLists
         [ExpectedException(typeof(ArgumentException))]
         public void NodeNextCantBeThis()
         {
-            SinglyLinkedListNode node = new SinglyLinkedListNode("foo");
+            SinglyLinkedListNode<string> node = new SinglyLinkedListNode<string>("foo");
             node.Next = node;
         }
 
         [TestMethod]
         public void NodeLastWhenLast()
         {
-            SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
-            SinglyLinkedListNode node2 = new SinglyLinkedListNode("bar");
+            SinglyLinkedListNode<string> node1 = new SinglyLinkedListNode<string>("foo");
+            SinglyLinkedListNode<string> node2 = new SinglyLinkedListNode<string>("bar");
             node1.Next = node2;
             Assert.IsFalse(node1.IsLast()); 
         }
@@ -52,7 +52,7 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void NodeLastWhenNotLast()
         {
-            SinglyLinkedListNode node = new SinglyLinkedListNode("foo");
+            SinglyLinkedListNode<string> node = new SinglyLinkedListNode<string>("foo");
             Assert.IsTrue(node.IsLast());
 
         }
@@ -61,63 +61,63 @@ namespace UnitTestSinglyLinkedLists
         [TestMethod]
         public void NodeEqualityWithEqualValues()
         {
-            SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
-            SinglyLinkedListNode node2 = new SinglyLinkedListNode("foo");
+            SinglyLinkedListNode<string> node1 = new SinglyLinkedListNode<string>("foo");
+            SinglyLinkedListNode<string> node2 = new SinglyLinkedListNode<string>("foo");
             Assert.AreEqual(node1, node2); // Equivalent to: Assert.IsTrue(node1.Equals(node2));
         }
 
         [TestMethod]
         public void NodeEqualityWithString()
         {
-            SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
+            SinglyLinkedListNode<string> node1 = new SinglyLinkedListNode<string>("foo");
             Assert.AreNotEqual(node1, "foo");
         }
 
         [TestMethod]
         public void NodeEqualityWithNull()
         {
-            SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
+            SinglyLinkedListNode<string> node1 = new SinglyLinkedListNode<string>("foo");
             Assert.AreNotEqual(node1, null);
         }
 
         [TestMethod]
         public void NodeEqualityIgnoresNext()
         {
-            SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
-            node1.Next = new SinglyLinkedListNode("bob");
-            SinglyLinkedListNode node2 = new SinglyLinkedListNode("foo");
-            node2.Next = new SinglyLinkedListNode("sally");
+            SinglyLinkedListNode<string> node1 = new SinglyLinkedListNode<string>("foo");
+            node1.Next = new SinglyLinkedListNode<string>("bob");
+            SinglyLinkedListNode<string> node2 = new SinglyLinkedListNode<string>("foo");
+            node2.Next = new SinglyLinkedListNode<string>("sally");
             Assert.AreEqual(node1, node2);
         }
 
         [TestMethod]
         public void NodeInequality()
         {
-            SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
-            SinglyLinkedListNode node2 = new SinglyLinkedListNode("bar");
+            SinglyLinkedListNode<string> node1 = new SinglyLinkedListNode<string>("foo");
+            SinglyLinkedListNode<string> node2 = new SinglyLinkedListNode<string>("bar");
             Assert.AreNotEqual(node1, node2);
         }
 
         [TestMethod]
         public void NodeGreaterThan()
         {
-            SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
-            SinglyLinkedListNode node2 = new SinglyLinkedListNode("bar");
+            SinglyLinkedListNode<string> node1 = new SinglyLinkedListNode<string>("foo");
+            SinglyLinkedListNode<string> node2 = new SinglyLinkedListNode<string>("bar");
             Assert.IsTrue(node1 > node2);
         }
 
         [TestMethod]
         public void NodeLesserThan()
         {
-            SinglyLinkedListNode node1 = new SinglyLinkedListNode("foo");
-            SinglyLinkedListNode node2 = new SinglyLinkedListNode("bar");
+            SinglyLinkedListNode<string> node1 = new SinglyLinkedListNode<string>("foo");
+            SinglyLinkedListNode<string> node2 = new SinglyLinkedListNode<string>("bar");
             Assert.IsTrue(node2 < node1);
         }
 
         [TestMethod]
         public void NodeToString()
         {
-            SinglyLinkedListNode node = new SinglyLinkedListNode("foo");
+            SinglyLinkedListNode<string> node = new SinglyLinkedListNode<string>("foo");
             Assert.AreEqual("foo", node.ToString());
         }
     }

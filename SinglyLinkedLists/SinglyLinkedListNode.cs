@@ -6,14 +6,13 @@ using System.Text;
 // Stretch Goals: Using Generics, which would include implementing GetType() http://msdn.microsoft.com/en-us/library/system.object.gettype(v=vs.110).aspx
 namespace SinglyLinkedLists
 {
-    public class SinglyLinkedListNode : IComparable
+    public class SinglyLinkedListNode<T> : IComparable where T : IComparable
     {
         // Used by the visualizer.  Do not change.
-        public static List<SinglyLinkedListNode> allNodes = new List<SinglyLinkedListNode>();
+        public static List<SinglyLinkedListNode<T>> allNodes = new List<SinglyLinkedListNode<T>>();
 
-        // READ: http://msdn.microsoft.com/en-us/library/aa287786(v=vs.71).aspx
-        private SinglyLinkedListNode next;
-        public SinglyLinkedListNode Next
+        private SinglyLinkedListNode<T> next;
+        public SinglyLinkedListNode<T> Next
         {
             get { return next; }
             set
@@ -25,9 +24,9 @@ namespace SinglyLinkedLists
                 next = value;
             }
         }
-
-        private string value;
-        public string Value 
+        
+        private T value;
+        public T Value 
         {
             get
             {
@@ -36,19 +35,19 @@ namespace SinglyLinkedLists
             set { this.value = value; }
         }
 
-        public static bool operator <(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
+        public static bool operator <(SinglyLinkedListNode<T> node1, SinglyLinkedListNode<T> node2)
         {
             // This implementation is provided for your convenience.
             return node1.CompareTo(node2) < 0;
         }
 
-        public static bool operator >(SinglyLinkedListNode node1, SinglyLinkedListNode node2)
+        public static bool operator >(SinglyLinkedListNode<T> node1, SinglyLinkedListNode<T> node2)
         {
             // This implementation is provided for your convenience.
             return node1.CompareTo(node2) > 0;
         }
 
-        public SinglyLinkedListNode(string val)
+        public SinglyLinkedListNode(T val)
         {
             value = val;
             next = null;
@@ -57,20 +56,19 @@ namespace SinglyLinkedLists
             allNodes.Add(this);
         }
 
-        // READ: http://msdn.microsoft.com/en-us/library/system.icomparable.compareto.aspx
-        public int CompareTo(Object obj)
+        public int CompareTo(object obj)
         {
             if (obj == null) { return 1; }
-            SinglyLinkedListNode otherNode = obj as SinglyLinkedListNode;
+            SinglyLinkedListNode<T> otherNode = obj as SinglyLinkedListNode<T>;
             if (otherNode != null)
-                return this.Value.CompareTo(otherNode.Value);
+                return Value.CompareTo(otherNode.Value);
             else
                 throw new ArgumentException();
         }
 
         public bool IsLast()
         {
-            if (this.Next == null)
+            if (Next == null)
             {
                 return true;
             }
@@ -80,14 +78,14 @@ namespace SinglyLinkedLists
 
         public override string ToString()
         {
-            return this.Value;
+            return Value.ToString();
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is SinglyLinkedListNode)
+            if (obj is SinglyLinkedListNode<T>)
             {
-                SinglyLinkedListNode other = (SinglyLinkedListNode)obj;
+                SinglyLinkedListNode<T> other = (SinglyLinkedListNode<T>)obj;
                 return Equals(other.Value, this.Value);
             }
             return false;

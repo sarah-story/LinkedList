@@ -5,28 +5,27 @@ using System.Text;
 
 namespace SinglyLinkedLists
 {
-    public class SinglyLinkedList
+    public class SinglyLinkedList<T> where T : IComparable
     {
-        private SinglyLinkedListNode first;
-        private SinglyLinkedListNode last;
+        private SinglyLinkedListNode<T> first;
+        private SinglyLinkedListNode<T> last;
         private int count;
 
-        // READ: http://msdn.microsoft.com/en-us/library/aa691335(v=vs.71).aspx
-        public SinglyLinkedList(params object[] values)
+        public SinglyLinkedList(params T[] values)
         {
             if (values.Length == 0)
             {
-                first = new SinglyLinkedListNode(null);
-                last = new SinglyLinkedListNode(null);
+                first = null;
+                last = null;
                 count = 0;
             }
             else
             {
-                SinglyLinkedListNode node = new SinglyLinkedListNode((string)values[0]);
+                SinglyLinkedListNode<T> node = new SinglyLinkedListNode<T>(values[0]);
                 first = node;
                 for (int i = 1; i < values.Length; i++)
                 {
-                    node.Next = new SinglyLinkedListNode((string)values[i]);
+                    node.Next = new SinglyLinkedListNode<T>(values[i]);
                     node = node.Next;   
                 }
                 last = node;
@@ -34,14 +33,13 @@ namespace SinglyLinkedLists
             }
         }
 
-        // READ: http://msdn.microsoft.com/en-us/library/6x16t2tx.aspx
-        public string this[int i]
+        public T this[int i]
         {
             get { return ElementAt(i); }
             set
             {
                 if (i >= count || i < 0) { throw new IndexOutOfRangeException(); }
-                SinglyLinkedListNode element = first;
+                SinglyLinkedListNode<T> element = first;
                 for (int j = 0; j < i; j++)
                 {
                     element = element.Next;
@@ -50,14 +48,14 @@ namespace SinglyLinkedLists
             }
         }
 
-        public void AddAfter(string existingValue, string value)
+        public void AddAfter(T existingValue, T value)
         {
-            SinglyLinkedListNode element = first;
+            SinglyLinkedListNode<T> element = first;
             while (element != null)
             {
-                if (element.Value == existingValue)
+                if (existingValue.Equals(element.Value))
                 {
-                    SinglyLinkedListNode newNode = new SinglyLinkedListNode(value);
+                    SinglyLinkedListNode<T> newNode = new SinglyLinkedListNode<T>(value);
                     newNode.Next = element.Next;
                     element.Next = newNode;
                     count++;
@@ -68,49 +66,49 @@ namespace SinglyLinkedLists
             }
         }
 
-        public void AddFirst(string value)
+        public void AddFirst(T value)
         {
-            if (first.Value != null)
+            if (first != null)
             {
-                SinglyLinkedListNode placeholder = first;
-                first = new SinglyLinkedListNode(value);
+                SinglyLinkedListNode<T> placeholder = first;
+                first = new SinglyLinkedListNode<T>(value);
                 first.Next = placeholder;
             }
             else
             {
-                first = new SinglyLinkedListNode(value);
+                first = new SinglyLinkedListNode<T>(value);
                 last = first;
             }
             count++;
         }
 
-        public void AddLast(string value)
+        public void AddLast(T value)
         {
-            if (last.Value != null)
+            if (last != null)
             {
-                SinglyLinkedListNode placeholder = last;
-                last = new SinglyLinkedListNode(value);
+                SinglyLinkedListNode<T> placeholder = last;
+                last = new SinglyLinkedListNode<T>(value);
                 placeholder.Next = last;
             }
             else
             {
-                last = new SinglyLinkedListNode(value);
+                last = new SinglyLinkedListNode<T>(value);
                 first = last;
             }
             count++;
         }
 
-        // NOTE: There is more than one way to accomplish this.  One is O(n).  The other is O(1).
         public int Count()
         {
             return count;
         }
 
-        public string ElementAt(int index)
+        public T ElementAt(int index)
         {
+            SinglyLinkedListNode<T> element = first;
             if (index == 0)
             {
-                if (first.Value == null)
+                if (first == null)
                 {
                     throw new ArgumentOutOfRangeException();
                 }
@@ -119,36 +117,52 @@ namespace SinglyLinkedLists
                     return first.Value;
                 }
             }
-            SinglyLinkedListNode element = first;
-            for (int i = 0; i < index; i++)
+            else if (index < 0)
             {
-                if (element.Next == null)
+                if (count + index < 0) { throw new ArgumentOutOfRangeException(); }
+                else
                 {
-                    throw new ArgumentOutOfRangeException();
+                    for (int i = 0; i < count + index; i++)
+                    {
+                        element = element.Next;
+                    }
+                    if (element == null) { throw new ArgumentOutOfRangeException(); }
+                    return element.Value;
                 }
-                element = element.Next;
-            }
-            if (element.Value == null)
-            {
-                throw new ArgumentOutOfRangeException();
             }
             else
             {
-                return element.Value;
+                for (int i = 0; i < index; i++)
+                {
+                    if (element.Next == null)
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+                    element = element.Next;
+                }
+                if (element == null)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                else
+                {
+                    return element.Value;
+                }
             }
         }
 
-        public string First()
+        public T First()
         {
+            if (first == null) { return default(T); }
             return first.Value;
         }
 
-        public int IndexOf(string value)
+        public int IndexOf(T value)
         {
-            SinglyLinkedListNode element = first;
+            SinglyLinkedListNode<T> element = first;
             for (int i = 0; i < count; i++)
             {
-                if (element.Value == value)
+                if (EqualityComparer<T>.Default.Equals(value, element.Value))
                 {
                     return i;
                 }
@@ -162,42 +176,34 @@ namespace SinglyLinkedLists
 
         public bool IsSorted()
         {
-            if (this.Count() == 0)
-            {
-                return true;
-            }
-            SinglyLinkedListNode element = first;
+            if (Count() == 0 || Count() == 1) { return true; }
+            SinglyLinkedListNode<T> element = first;
             for (int i = 0; i < count - 1; i++)
             {
-                if (element.Next < element)
-                {
-                    return false;
-                }
+                if (element.Next < element) { return false; }
                 element = element.Next;
             }
             return true;
         }
 
-        // HINT 1: You can extract this functionality (finding the last item in the list) from a method you've already written!
-        // HINT 2: I suggest writing a private helper method LastNode()
-        // HINT 3: If you highlight code and right click, you can use the refactor menu to extract a method for you...
-        public string Last()
+        public T Last()
         {
+            if (last == null) { return default(T); }
             return last.Value;
         }
 
-        public void Remove(string value)
+        public void Remove(T value)
         {
-            if (first.Value == value)
+            if (EqualityComparer<T>.Default.Equals(first.Value, value))
             {
                 first = first.Next;
                 count--;
                 return;
             }
-            SinglyLinkedListNode element = first;
+            SinglyLinkedListNode<T> element = first;
             while (element.Next != null)
             {
-                if (element.Next.Value == value)
+                if (EqualityComparer<T>.Default.Equals(element.Next.Value,value))
                 {
                     if (element.Next == last)
                     {
@@ -209,7 +215,7 @@ namespace SinglyLinkedLists
                         element.Next = element.Next.Next;
                     }
                     count--;
-                    return;
+                    break;
                 }
                 else
                 {
@@ -220,34 +226,24 @@ namespace SinglyLinkedLists
 
         public void Sort()
         {
-            first = MergeSort(first);
-            SinglyLinkedListNode element = first;
-            for(int i = 0; i< count; i++)
-            {
-                if (element.IsLast())
-                {
-                    last = element;
-                    return;
-                }
-                element = element.Next;
-            }   
+            first = MergeSort(first);  
         }
 
-        private SinglyLinkedListNode MergeSort(SinglyLinkedListNode head)
+        private SinglyLinkedListNode<T> MergeSort(SinglyLinkedListNode<T> head)
         {
-            SinglyLinkedListNode secondNode;
+            SinglyLinkedListNode<T> secondHalf;
             if (head == null || head.Next == null) { return head; }
             else
             {
-                secondNode = Split(head);
-                return Merge(MergeSort(head), MergeSort(secondNode));
+                secondHalf = Split(head);
+                return Merge(MergeSort(head), MergeSort(secondHalf));
             }
         }
 
-        private SinglyLinkedListNode Merge(SinglyLinkedListNode a, SinglyLinkedListNode b)
+        private SinglyLinkedListNode<T> Merge(SinglyLinkedListNode<T> a, SinglyLinkedListNode<T> b)
         {
-           if (a == null) { return b; }
-           else if (b == null) { return a; }
+           if (a == null) { last = b; return b; }
+           else if (b == null) { last = a; return a; }
            else if (a.Value.CompareTo(b.Value) <= 0)
             {
                 a.Next = Merge(a.Next, b);
@@ -260,23 +256,23 @@ namespace SinglyLinkedLists
             }
         } 
 
-        private SinglyLinkedListNode Split(SinglyLinkedListNode head)
+        private SinglyLinkedListNode<T> Split(SinglyLinkedListNode<T> head)
         {
-            SinglyLinkedListNode placeholder;
+            SinglyLinkedListNode<T> secondHalf;
             if (head == null || head.Next == null) { return null; }
             else
             {
-                placeholder = head.Next;
-                head.Next = placeholder.Next;
-                placeholder.Next = Split(placeholder.Next);
-                return placeholder;
+                secondHalf = head.Next;
+                head.Next = secondHalf.Next;
+                secondHalf.Next = Split(secondHalf.Next);
+                return secondHalf;
             }
         }
 
-        public string[] ToArray()
+        public T[] ToArray()
         {
-            List<string> array = new List<string>();
-            SinglyLinkedListNode element = first;
+            List<T> array = new List<T>();
+            SinglyLinkedListNode<T> element = first;
             while (element != null && element.Value != null)
             {
                 array.Add(element.Value);
@@ -287,7 +283,7 @@ namespace SinglyLinkedLists
 
         public override string ToString()
         {
-            if (first.Value == null) { return "{ }"; }
+            if (first == null) { return "{ }"; }
             string arrayString = String.Join("\", \"", this.ToArray());
             string output = String.Format("{{ \"{0}\" }}", arrayString);
             return output;

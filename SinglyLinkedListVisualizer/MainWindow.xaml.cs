@@ -24,7 +24,7 @@ namespace SinglyLinkedListVisualizer
     public partial class MainWindow : Window
     {
         private BidirectionalGraph<object, IEdge<object>> _graphToVisualize;
-        private SinglyLinkedList linkedList;
+        private SinglyLinkedList<string> linkedList;
 
         public BidirectionalGraph<object, IEdge<object>> GraphToVisualize
         {
@@ -42,7 +42,7 @@ namespace SinglyLinkedListVisualizer
 
         private void InitializeLinkedList()
         {
-            linkedList = new SinglyLinkedList();
+            linkedList = new SinglyLinkedList<string>();
         }
 
         private void Sort_Click(object sender, RoutedEventArgs e)
@@ -79,7 +79,7 @@ namespace SinglyLinkedListVisualizer
         private void PopulateMethodList()
         {
             var methodList = new List<string>();
-            foreach (MethodInfo methodInfo in typeof(SinglyLinkedList).GetMethods())
+            foreach (MethodInfo methodInfo in typeof(SinglyLinkedList<string>).GetMethods())
             {
                 if (!methodInfo.IsStatic  && methodInfo.IsPublic)
                 {
@@ -104,11 +104,11 @@ namespace SinglyLinkedListVisualizer
 
             _graphToVisualize.AddVertex("SinglyLinkedList");
             _graphToVisualize.AddVertex("null");
-            foreach(SinglyLinkedListNode node in SinglyLinkedListNode.allNodes){
+            foreach(SinglyLinkedListNode<string> node in SinglyLinkedListNode<string>.allNodes){
                 _graphToVisualize.AddVertex(node.ToString());
             }
 
-            foreach (SinglyLinkedListNode node in SinglyLinkedListNode.allNodes)
+            foreach (SinglyLinkedListNode<string> node in SinglyLinkedListNode<string>.allNodes)
             {
                 if (node.Next == null)
                 {
