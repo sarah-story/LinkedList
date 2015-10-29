@@ -1,8 +1,6 @@
 # CSharpLinkedLists
 
-Cohort Juniper Linked List Project.
-
-Master Branch is Singly Linked List. There is a seperate branch for Doubly Linked List.
+Master Branch is Singly Linked Lists. There is a seperate branch for Doubly Linked Lists.
 
 The solution contains:
   * A Library Project, SinglyLinkedLists
